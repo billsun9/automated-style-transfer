@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+</head>
+<body>
+    <h1>Predictions:</h1>
+    <p>
+        {% for path in paths %}
+        <img src="{{ path }}" alt="User Image" height="350" width="350">
+        {% endfor %}
+    </p>
+    <a href="/">Return home!</a>
+</body>
+</html>
