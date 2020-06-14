@@ -7,10 +7,21 @@
 </head>
 <body>
     <h1>Predictions:</h1>
-    <p>
-        {% for path in paths %}
-        <img src="{{ path }}" alt="User Image" height="350" width="350">
-        {% endfor %}
+    <p><!--
+        <img src="{{url_for('static', filename='preds/content_img.jpg')}}" alt="User Image" height="350" width="350">
+        <img src="{{url_for('static', filename='preds/style_img.jpg')}}" alt="User Image" height="350" width="350">
+        <img src="{{url_for('static', filename='preds/stylized_img.jpg')}}" alt="User Image" height="350" width="350">
+    -->
+    <!--
+        <img src="/static/preds/content_img.jpg" alt="User Image" height="350" width="350">
+        <img src="/static/preds/style_img.jpg" alt="User Image" height="350" width="350">
+        <img src="/static/preds/stylized_img.jpg" alt="User Image" height="350" width="350">
+    -->
+    
+    <!--{% for path in paths %}
+    <img src="{{ path }}" alt="User Image" height="350" width="350">
+    {% endfor %}-->
+    <img src="{{ path }}" alt="User Image" height="350" width="auto">
     </p>
     <a href="/">Return home!</a>
 </body>

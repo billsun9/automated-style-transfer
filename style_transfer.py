@@ -1,11 +1,11 @@
 import functools
 import os
-from matplotlib import gridspec
+from matplotlib import gridspec, pyplot
 import matplotlib.pylab as plt
 import numpy as np
 import tensorflow as tf
 import tensorflow_hub as hub
-
+import cv2
 def crop_center(image):
     """Returns a cropped square image."""
     shape = image.shape
@@ -31,7 +31,7 @@ def load_image(image_path, image_size=(256, 256), preserve_aspect_ratio=True):
     img = tf.image.resize(img, image_size, preserve_aspect_ratio=True)
     return img
 
-def show_n(images, titles=('',)):
+def save_n(images, path, titles=('',)):
     n = len(images)
     image_sizes = [image.shape[1] for image in images]
     w = (image_sizes[0] * 6) // 320
@@ -42,14 +42,20 @@ def show_n(images, titles=('',)):
         plt.imshow(images[i][0], aspect='equal')
         plt.axis('off')
         plt.title(titles[i] if len(titles) > i else '')
-    plt.show()
+    #plt.show()
+    plt.savefig(path)
+    pyplot.clf()
+    pyplot.cla()
+    pyplot.close()
 
+# %%
 def load_model():
     hub_handle = 'https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/2'
     hub_module = hub.load(hub_handle)
     return hub_module
   
-def style_transfer(content_image, style_image):
+def style_transfer(content_image, style_image): # return the filepath to the new prediction
+    num = np.random.randint(1000)
     output_image_size = 384
     content_img_size = (output_image_size, output_image_size)
     style_img_size = (256, 256)
@@ -59,6 +65,13 @@ def style_transfer(content_image, style_image):
     model = load_model()
     outputs = model(content_image, style_image)
     stylized_image = outputs[0]
-    show_n([content_image, style_image, stylized_image], titles=['content_image', 'style_image', 'Stylized image'])
+    #save_n([content_image], path="static/preds/content_img.jpg", titles=['content_image'])
+    #save_n([style_image], path="static/preds/style_img.jpg", titles=['style_image'])
+    #save_n([stylized_image], path="static/preds/stylized_img.jpg", titles=['Stylized image'])
+    file_path = "static/preds/img_pred" + str(num) + ".jpg"
+    save_n([content_image, style_image, stylized_image], path=file_path, titles=['content_image', 'style_image', 'Stylized image'])
+    return file_path
 # %%
-style_transfer('./imgs_bill/cat.jpg', './imgs_bill/wave.jpg')    
+#content_image = './imgs_bill/cat.jpg'
+#style_image = './imgs_bill/wave.jpg'
+#style_transfer(content_image, style_image)
