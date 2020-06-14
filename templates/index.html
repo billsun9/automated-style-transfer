@@ -3,22 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Upload</title>
+    <title>Neural Network Style Transfer</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        header .container-fluid {
+            background: linear-gradient(120deg, #9900cc, #66a3ff);
+            padding-top: 4vh;
+            padding-bottom: 4vh;
+            color: rgb(224, 224, 224);
+            margin-bottom: 7vh;
+        }
+        header h1 {
+            font-weight: 700;
+        }
+        .inputfile {
+            opacity: 0;
+            height: 0.1px;
+            width: 0.1px;
+        }
+        .uploading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly
+        }
+        .uploading label {
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 1.25em;
+            font-weight: 700;
+            color: white;
+            background-color: rgb(49, 178, 221);
+            display: inline-block;
+        }
+        .uploading label:hover {
+            color: rgb(49, 178, 221);
+            background-color: rgb(13, 26, 216);
+            transition: ease all 0.5s;
+        }
+        .wrapper {
+            display:flex;
+            align-items: stretch;
+        }
+        .submit-btn {
+            margin-top: 7vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #submit {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-decoration: none;
+            margin: 4px 2px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <h1>
-        Upload Your files
-    </h1>
-    <form action="/results" method="POST" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <br>
-        <input type="radio" class="radio-btn" id="style1" name="style" value="static/style_imgs/wave.jpg">
-        <label for="style1">Wave</label><br>
-        <input type="radio" class="radio-btn" id="style2" name="style" value="static/style_imgs/comp7.jpg">
-        <label for="style2">Comp7</label><br>  
-        <input type="radio" class="radio-btn" id="style3" name="style" value="static/style_imgs/starrynight.jpg">
-        <label for="style3">Starry Night</label><br><br>
-        <input type="submit" value="Upload!">
-    </form>
+    <header>
+        <div class="container-fluid">
+            <div class="row">
+                <h1 class="text-center">Automated Style Transfer</h1>
+                <h4 class="text-center">This web application utilizes deep neural networks to provide a real-time means of styling user images with several famous artwork styles</h4>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="row">
+            <form action="/results" method="POST" enctype="multipart/form-data">
+                <div class="wrapper">
+                    <div class="col-sm-4 uploading">
+                        <input type="file" name="file" id="customFile" class="inputfile" required>
+                        <label for="customFile">Choose a file...</label>
+                        <p class="status">:)</p>
+                    </div>
+                    <div class="col-sm-4 buttons">
+                        <input type="radio" class="radio-btn" id="style1" name="style" value="static/style_imgs/wave.jpg" required>
+                        <label for="style1">The Great Wave off of Kanagawa - <span>Hokusai</span></label><br>
+    
+                        <input type="radio" class="radio-btn" id="style2" name="style" value="static/style_imgs/comp7.jpg">
+                        <label for="style2">Composition VII - <span>Vassily_Kandinsky</span></label><br>  
+    
+                        <input type="radio" class="radio-btn" id="style3" name="style" value="static/style_imgs/starrynight.jpg">
+                        <label for="style3">Starry Night - <span>Van Gogh</span></label><br>
+    
+                        <input type="radio" class="radio-btn" id="style4" name="style" value="static/style_imgs/nantes_turner.jpg">
+                        <label for="style4">The Chateau, Nantes - <span>Joseph Turner</span></label><br>
+    
+                        <input type="radio" class="radio-btn" id="style5" name="style" value="static/style_imgs/scream.jpg">
+                        <label for="style5">The Scream - <span>Edvard Munch</span></label><br>
+    
+                        <input type="radio" class="radio-btn" id="style6" name="style" value="static/style_imgs/desmoilles.jpg">
+                        <label for="style6">Les Demoiselles D'avignon - <span>Pablo Picasso</span></label><br>
+    
+                        <input type="radio" class="radio-btn" id="style7" name="style" value="static/style_imgs/violin.jpg">
+                        <label for="style7">Violin - <span>Pablo Picasso</span></label><br>
+    
+                        <input type="radio" class="radio-btn" id="style8" name="style" value="static/style_imgs/still_life.jpg">
+                        <label for="style8">Still Life - <span>Amadeo de Souza Cardoso</span></label><br>
+    
+                        <input type="radio" class="radio-btn" id="style9" name="style" value="static/style_imgs/mother.jpg">
+                        <label for="style9">Mother and child - <span>Gyula Derkovits</span></label><br>
+    
+                        <input type="radio" class="radio-btn" id="style10" name="style" value="static/style_imgs/fishmonger.jpg">
+                        <label for="style10">Fishmonger - <span>Gyula Derkovits</span></label><br><br>
+                    </div>
+                    <div class="col-sm-4 pic">
+                        <img src="/static/style_imgs/still_life.jpg" alt="img" class="img-responsive" style="max-height: 48vh">
+                    </div>
+                </div>
+                <div class="submit-btn">
+                    <input id="submit" type="submit" value="Upload!">
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function() {
+          var fileName = $(this).val().split("\\").pop();
+          $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+        let radios = document.querySelectorAll('.radio-btn')
+        let img = document.querySelector('img')
+        let fileLabel = document.querySelector('.uploading label')
+        for(radio in radios) {
+            radios[radio].onclick = function() {
+            img.setAttribute('src', "/"+this.value)
+            }
+        };
+        fileLabel.addEventListener('click', () => {
+            fileLabel.nextElementSibling.textContent = 'file has been uploaded!'
+        });
+    </script>
 </body>
 </html>

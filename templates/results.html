@@ -4,10 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Results</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+    min-height: 100vh;
+    background-image: linear-gradient(120deg, rgb(226, 248, 248), rgb(25, 211, 211));
+}
+        h1 {
+            color: darkblue;
+            font-size: 48px;
+        }
+        .main {
+            display: flex;
+            flex-direction: column;
+            height: 80vh;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        .link {
+            display: flex;
+            height: 20vh;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        a {
+            color: blue;
+            text-decoration: none;
+            font-size: 24px;
+            background-color: antiquewhite;
+            padding: 10px;
+            border-radius: 20px;
+            
+        }
+        a:link, a:visited {
+            text-decoration: none;
+        }
+        a:hover {
+            background-color: rgb(202, 99, 99);
+            color:antiquewhite;
+            transition: ease all 0.5s;
+        }
+    </style>
 </head>
 <body>
-    <h1>Predictions:</h1>
-    <p><!--
+    <div class="container main">
+        <div class="row">
+            <div class="text-center"><h1>Neural Network-powered style transfer!</h1></div>
+            <img src="{{ path }}" alt="User Image" height="350" width="auto">
+        </div>
+    </div>
+    <div class="container link">
+        <a href="/">Try another style!</a>
+    </div>
+<!--
         <img src="{{url_for('static', filename='preds/content_img.jpg')}}" alt="User Image" height="350" width="350">
         <img src="{{url_for('static', filename='preds/style_img.jpg')}}" alt="User Image" height="350" width="350">
         <img src="{{url_for('static', filename='preds/stylized_img.jpg')}}" alt="User Image" height="350" width="350">
@@ -21,8 +77,5 @@
     <!--{% for path in paths %}
     <img src="{{ path }}" alt="User Image" height="350" width="350">
     {% endfor %}-->
-    <img src="{{ path }}" alt="User Image" height="350" width="auto">
-    </p>
-    <a href="/">Return home!</a>
 </body>
 </html>
