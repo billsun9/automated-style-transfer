@@ -70,7 +70,7 @@ def style_transfer(content_image, style_image): # return the filepath to the new
     #save_n([style_image], path="static/preds/style_img.jpg", titles=['style_image'])
     #save_n([stylized_image], path="static/preds/stylized_img.jpg", titles=['Stylized image'])
     file_path = "static/preds/img_pred" + str(num) + ".jpg"
-    save_n([content_image, style_image, stylized_image], path=file_path, titles=['content_image', 'style_image', 'Stylized image'])
+    save_n([content_image, style_image, stylized_image], path=file_path, titles=['Original Image', 'Style Image', 'Stylized Image'])
     return file_path
 # %%
 #content_image = './imgs_bill/cat.jpg'
