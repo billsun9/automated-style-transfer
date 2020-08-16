@@ -6,6 +6,7 @@ import numpy as np
 import tensorflow as tf
 import tensorflow_hub as hub
 import cv2
+# %%
 def crop_center(image):
     """Returns a cropped square image."""
     shape = image.shape
@@ -56,7 +57,7 @@ def load_model():
   
 def style_transfer(content_image, style_image): # return the filepath to the new prediction
     num = np.random.randint(1000)
-    output_image_size = 384
+    output_image_size = 384 #384
     content_img_size = (output_image_size, output_image_size)
     style_img_size = (256, 256)
     content_image = load_image(content_image, content_img_size)

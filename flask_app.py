@@ -1,21 +1,13 @@
 import os
-from flask import Flask, flash, request, redirect, url_for, render_template
+from flask import Flask, request, redirect, render_template
 from werkzeug.utils import secure_filename
-from utils import purge, allowed_file
+from utils import purge, allowed_file, show_predictions
 from style_transfer import style_transfer
 import numpy as np
 UPLOAD_FOLDER = 'static/user_imgs'
 STYLE_FOLDER = 'static/style_imgs'
 PREDICTION_FOLDER = 'static/preds'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
-
-def show_predictions(dir):
-    filelist = os.listdir(dir)
-    to_show = []
-    for file in filelist:
-        saved_loc = os.path.join(dir, file)
-        to_show.append(saved_loc)
-    return to_show
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -42,5 +34,6 @@ def results():
             file.save(user_path)
             path = style_transfer(user_path, style_path)
             return render_template('results.html', path=path)
+# %%
 if __name__ == '__main__':
     app.run(debug=False)

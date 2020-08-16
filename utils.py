@@ -19,3 +19,11 @@ def purge():
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def show_predictions(dir):
+    filelist = os.listdir(dir)
+    to_show = []
+    for file in filelist:
+        saved_loc = os.path.join(dir, file)
+        to_show.append(saved_loc)
+    return to_show
